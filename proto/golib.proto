@@ -1,0 +1,47 @@
+syntax="proto3";
+
+option go_package = "./proto";
+
+package golib_service;
+
+service GolibService {
+    // simple unary RPC
+    rpc CheckHealty(Empty) returns (Response);
+    // server streaming RPC
+    rpc ServerStreaming(BooksRequest) returns (stream BookResponse);
+    // client streaming RPC
+    rpc ClientStreaming(stream BookRequest) returns (BooksResponse);
+    // bidirectional streaming RPC
+    rpc BidirectionalStreaming(stream BookRequest) returns (stream BookResponse);
+}
+
+message Empty {};
+
+message Response {
+    string message = 1;
+}
+
+
+message Book {
+    string title = 1;
+    string author = 2;
+    string desc = 3;
+}
+
+message BookRequest {
+    Book book = 1;
+}
+
+message BookResponse {
+    Book book = 1;
+}
+
+message BooksRequest {
+    repeated Book books = 1;
+}
+
+message BooksResponse {
+    repeated Book books = 1;
+}
+
+
